@@ -1,0 +1,71 @@
+{
+    "schema_version": "1.0",
+    "criteria": [
+        {
+            "id": "total_population",
+            "name": "Total Student Population",
+            "description": "Total number of students currently enrolled in the school.",
+            "criteria_type": "cost",
+            "data_type": "numeric",
+            "unit": "students",
+            "required": true,
+            "source_column": "total_population",
+            "display_order": 1
+        },
+        {
+            "id": "total_budget",
+            "name": "Total Budget Allocation",
+            "description": "Total budget allocated to the school for the current fiscal year.",
+            "criteria_type": "benefit",
+            "data_type": "numeric",
+            "unit": "usd",
+            "required": true,
+            "source_column": "total_budget",
+            "display_order": 2
+        },
+        {
+            "id": "budget_per_student",
+            "name": "Budget Per Student",
+            "description": "Budget allocation divided by total enrollment.",
+            "criteria_type": "benefit",
+            "data_type": "numeric",
+            "unit": "usd_per_student",
+            "required": true,
+            "source_column": "budget_per_student",
+            "display_order": 3
+        },
+        {
+            "id": "grade_9_share",
+            "name": "Grade 9 Student Share",
+            "description": "Share of grade 9 students relative to total enrollment.",
+            "criteria_type": "cost",
+            "data_type": "numeric",
+            "unit": "ratio",
+            "required": true,
+            "source_column": "grade_9_share",
+            "display_order": 4
+        },
+        {
+            "id": "retention_rate",
+            "name": "Student Retention Rate",
+            "description": "Ratio of grade 12 enrollment to grade 9 enrollment.",
+            "criteria_type": "cost",
+            "data_type": "numeric",
+            "unit": "ratio",
+            "required": true,
+            "source_column": "retention_rate",
+            "display_order": 5
+        },
+        {
+            "id": "grade_imbalance",
+            "name": "Grade Imbalance",
+            "description": "Degree of imbalance in the distribution of students across grade levels.",
+            "criteria_type": "benefit",
+            "data_type": "numeric",
+            "unit": "imbalance_score",
+            "required": true,
+            "source_column": "grade_imbalance",
+            "display_order": 6
+        }
+    ]
+}

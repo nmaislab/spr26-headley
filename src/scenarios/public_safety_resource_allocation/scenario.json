@@ -1,0 +1,99 @@
+{
+    "schema_version": "1.0",
+    "scenario_id": "public_safety_resource_allocation",
+    "scenario_version": "2026.05",
+    "status": "active",
+    "title": "Public Safety Resource Allocation",
+    "domain": "public_safety",
+    "tags": ["public_safety", "public_policy", "police", "testing"],
+    "summary": "Evaluate strategies for allocating public safety resources to address crime and community safety concerns.",
+    "description": "A generic city is considering how to allocate a constrained public safety budget. Four distinct alternatives represent different strategic approaches: building new infrastructure, expanding existing capacity, increasing visibility through patrols, or investing in community-based prevention. This scenario brings together diverse stakeholders—from police leadership and city government to community advocates and residents—to weigh the trade-offs between cost, crime reduction effectiveness, community trust impact, and implementation speed. The decision involves balancing public safety improvements against resource constraints and community preferences for different intervention strategies.",
+    "policy_question": "Given the trade-offs between implementation cost, crime reduction potential, community impact, and implementation timeline, which public safety resource allocation strategy should the city pursue?",
+    "alternatives": [
+        {
+            "id": "new_precinct",
+            "name": "Build new precinct",
+            "description": "Construct a new police precinct facility in an underserved area. This approach provides permanent infrastructure, centralizes operations, and can serve as a community hub. Requires significant upfront capital investment and long implementation timeline but creates lasting capacity for expanded services."
+        },
+        {
+            "id": "expand_precinct",
+            "name": "Expand existing precinct",
+            "description": "Expand current precinct facilities to accommodate more staff and resources. This option builds on existing infrastructure and community relationships while reducing implementation time compared to new construction. Moderate upfront costs with good returns on expanding capacity."
+        },
+        {
+            "id": "more_patrols",
+            "name": "Increase patrol units",
+            "description": "Deploy additional patrol vehicles and personnel across neighborhoods with increased visible police presence. This approach can be implemented quickly with minimal infrastructure changes. Provides immediate response capability and community visibility but requires ongoing staffing costs."
+        },
+        {
+            "id": "community_prevention",
+            "name": "Invest in community violence prevention",
+            "description": "Fund community-based violence intervention and prevention programs, youth engagement, and social services partnerships. This approach addresses root causes through community collaboration and early intervention. Quick to implement with lower capital costs but may have longer timeline to show crime reduction results."
+        }
+    ],
+    "criteria_file": "criteria.json",
+	"data_sources_file": "data_sources.json",
+	"preprocessing_file": "preprocessing.json",
+	"session_rules_file": "session_rules.json",
+	"ui_config_file": "ui_config.json",
+    "stakeholder_groups": [
+        {
+            "id": "community_residents",
+            "label": "Community Residents",
+            "description": "Residents directly affected by public safety decisions and crime prevention strategies in their neighborhoods.",
+            "default_group_voting_power": 0.15
+        },
+        {
+            "id": "police_leadership",
+            "label": "Police Leadership",
+            "description": "Police department leadership and law enforcement professionals responsible for implementing public safety strategies.",
+            "default_group_voting_power": 0.20
+        },
+        {
+            "id": "city_government",
+            "label": "City Government",
+            "description": "City council members, budget officials, and government administrators who allocate resources and set policy.",
+            "default_group_voting_power": 0.25
+        },
+        {
+            "id": "community_advocates",
+            "label": "Community Advocates & Social Services",
+            "description": "Community organizations, social workers, and advocates focused on public health, justice reform, and community wellbeing.",
+            "default_group_voting_power": 0.25
+        },
+        {
+            "id": "business_economic",
+            "label": "Business & Economic Development",
+            "description": "Business leaders and economic development professionals concerned with public safety impacts on commerce and community investment.",
+            "default_group_voting_power": 0.15
+        }
+    ],
+    "preference_collection": {
+		"default_method": "criterion_linguistic_rating",
+		"supported_methods": ["criterion_linguistic_rating", "pairwise_comparison"],
+		"default_scale_id": "five_level_importance"
+	},
+    "scales": {
+		"five_level_importance": {
+			"type": "linguistic",
+			"ordered": true,
+			"values": [
+				{"label": "Very Low", "numeric_value": 1, "fuzzy_value": [0.0, 0.1, 0.25]},
+				{"label": "Low", "numeric_value": 2, "fuzzy_value": [0.15, 0.3, 0.45]},
+				{"label": "Medium", "numeric_value": 3, "fuzzy_value": [0.35, 0.5, 0.65]},
+				{"label": "High", "numeric_value": 4, "fuzzy_value": [0.55, 0.7, 0.85]},
+				{"label": "Very High", "numeric_value": 5, "fuzzy_value": [0.75, 0.9, 1.0]}
+			]
+		}
+	},
+	"mcdm_methods": {
+		"weighting_supported": ["AHP"],
+		"ranking_supported": ["TOPSIS", "FUZZY_TOPSIS"],
+		"default_weighting": "AHP",
+		"default_ranking": "TOPSIS"
+	},
+	"handoff": {
+		"contract_version": "1.0",
+		"expected_exports": ["stakeholder_submission_export", "session_approved_export", "preprocessing_metadata_export"]
+	}
+}

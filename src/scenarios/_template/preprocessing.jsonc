@@ -1,0 +1,265 @@
+{
+  /*
+    PREPROCESSING CONFIGURATION TEMPLATE
+    
+    This file defines the ETL (Extract-Transform-Load) pipeline
+    that transforms raw data into criteria values for voting.
+    
+    IMPORTANT: This is a TEMPLATE file. Do not use directly.
+    Copy this entire directory and customize the values for your scenario.
+  */
+  
+  "schema_version": "1.0",
+  
+  // Identifier for this pipeline
+  "pipeline_id": "data_transformation_pipeline",
+  
+  // Description of what this pipeline does
+  "description": "Load data from multiple sources, merge, compute metrics, and prepare for voting",
+  
+  /*
+    ========== TRANSFORMATION STEPS ==========
+    
+    Execute in order. Each step's output becomes the next step's input.
+    Step IDs should be sequential (step_1, step_2, ...) for clarity.
+  */
+  
+  "steps": [
+    {
+      /*
+        ===== STEP 1: LOAD MAIN DATA =====
+        Load the first CSV file from data_sources
+      */
+      
+      "id": "step_1",
+      "type": "load_csv",
+      
+      // Reference to a data_source id from data_sources.jsonc
+      // Only used for load_csv steps
+      "source_ref": "main_data",
+      
+      // Input: name of input table
+      // null for first step (no previous table)
+      "input": null,
+      
+      // Output: name of table for next step
+      // Use descriptive names (e.g., "population_data", "budget_data")
+      "output": "raw_data"
+    },
+    
+    {
+      /*
+        ===== STEP 2: RENAME COLUMNS =====
+        
+        Standardize column names to match expected format.
+        Useful when source data has inconsistent naming.
+      */
+      
+      "id": "step_2",
+      "type": "rename_columns",
+      "input": "raw_data",
+      "output": "data_renamed",
+      
+      // Mapping: "original_column_name" -> "new_name"
+      // List all columns that need renaming
+      // Columns not listed keep their original names
+      "columns": {
+        "Name": "alternative_id",
+        "Total_Students": "enrollment",
+        "Annual_Budget": "budget",
+        "Staff_Count": "staff"
+      }
+    },
+    
+    {
+      /*
+        ===== STEP 3: CONVERT DATA TYPES =====
+        
+        Ensure columns have correct data types for calculations.
+      */
+      
+      "id": "step_3",
+      "type": "convert_types",
+      "input": "data_renamed",
+      "output": "data_typed",
+      
+      // Column type mapping
+      // Supported types: int, float, string, bool
+      "columns": {
+        "alternative_id": "string",
+        "enrollment": "int",
+        "budget": "float",
+        "staff": "int"
+      }
+    },
+    
+    {
+      /*
+        ===== STEP 4: HANDLE MISSING VALUES =====
+        
+        Deal with null/missing data.
+      */
+      
+      "id": "step_4",
+      "type": "missing_values",
+      "input": "data_typed",
+      "output": "data_cleaned",
+      
+      // Strategy for handling missing values
+      "options": {
+        // "drop_rows": remove rows with any missing values
+        // "fill_mean": replace with column mean
+        // "fill_median": replace with column median
+        // "fill_zero": replace with 0
+        // "fill_forward": use previous value
+        "strategy": "fill_median"
+      }
+    },
+    
+    {
+      /*
+        ===== STEP 5: DERIVE A NEW COLUMN =====
+        
+        Calculate a new metric from existing columns.
+        Simple arithmetic operations supported.
+      */
+      
+      "id": "step_5",
+      "type": "derive_column",
+      "input": "data_cleaned",
+      "output": "data_with_metrics",
+      
+      // New column name
+      "operation": "budget_per_student",
+      
+      // Expression columns and operators
+      // Operators: +, -, *, /, % (modulo)
+      // Parentheses for grouping supported
+      // Format: ["column1", "operator", "column2", ...]
+      "operands": ["budget", "/", "enrollment"]
+    },
+    
+    {
+      /*
+        ===== STEP 6: CALL CUSTOM FUNCTION =====
+        
+        Execute a Python function for complex transformations.
+        Function must be listed in approved_functions below.
+      */
+      
+      "id": "step_6",
+      "type": "approved_function",
+      "input": "data_with_metrics",
+      "output": "data_with_complex_metrics",
+      
+      // Reference to an approved function (defined below)
+      // Function will receive input table as DataFrame
+      // Must return a DataFrame with additional columns
+      "function_ref": "compute_derived_metrics"
+    },
+    
+    {
+      /*
+        ===== STEP 7: SELECT FINAL COLUMNS =====
+        
+        Keep only columns needed for voting.
+        Removes intermediate calculations and standardizes output.
+      */
+      
+      "id": "step_7",
+      "type": "select_columns",
+      "input": "data_with_complex_metrics",
+      "output": "final_output",
+      
+      // Columns to keep: true = keep, false = drop
+      // Or just list the columns to keep
+      "columns": {
+        "alternative_id": true,
+        "enrollment": true,
+        "budget": true,
+        "budget_per_student": true,
+        "satisfaction_score": true,
+        "operational_efficiency": true
+      }
+    }
+  ],
+  
+  /*
+    ========== APPROVED FUNCTIONS ==========
+    
+    Define which Python functions can be called in the pipeline.
+    Only functions listed here are allowed (security constraint).
+  */
+  
+  "approved_functions": [
+    {
+      // ID referenced in approved_function steps
+      "id": "compute_derived_metrics",
+      
+      // File containing the function (always "functions.py")
+      "file": "functions.py",
+      
+      // Function name in that file (must match exactly)
+      "callable": "compute_scenario_metrics",
+      
+      // Input type (always "dataframe" for now)
+      "input_type": "dataframe",
+      
+      // Output type (always "dataframe" for now)
+      "output_type": "dataframe",
+      
+      // Allowed imports (strict whitelist for security)
+      // Only pandas, numpy, math are allowed
+      // Other imports will cause function to be rejected
+      "allowed_imports": ["pandas", "numpy", "math"]
+    }
+  ],
+  
+  /*
+    ========== FINAL OUTPUT SPECIFICATION ==========
+    
+    Specifies what the final preprocessed data should contain.
+  */
+  
+  "final_output": {
+    // Name of the output table from last preprocessing step
+    // MUST match the output of the final step
+    "table": "final_output",
+    
+    // Column name that uniquely identifies each alternative
+    // This must be unique across all rows
+    // Used to link alternatives to their criteria values
+    // CRITICAL: Must match the "id" field in scenario.jsonc alternatives
+    "alternative_id_column": "alternative_id",
+    
+    // Mapping: criterion_id -> column_name_in_data
+    // criterion_id MUST match "id" in criteria.jsonc
+    // column_name_in_data MUST exist in final output table
+    // These are the values voters will evaluate
+    "criteria_columns": {
+      "total_enrollment": "enrollment",
+      "satisfaction_score": "satisfaction_score",
+      "operational_efficiency": "operational_efficiency"
+    }
+  },
+  
+  /*
+    ========== VALIDATION RULES ==========
+    
+    Rules that the final output must satisfy.
+  */
+  
+  "validation": {
+    // Columns that must exist in final output
+    // If any are missing, preprocessing fails
+    "required_columns": ["alternative_id", "enrollment", "satisfaction_score"],
+    
+    // Columns that cannot contain null/missing values
+    // If any have nulls, preprocessing fails
+    "no_nulls_in": ["alternative_id", "enrollment"],
+    
+    // Minimum number of rows required
+    // If final output has fewer rows, preprocessing fails
+    "minimum_rows": 2
+  }
+}

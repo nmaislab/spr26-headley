@@ -1,0 +1,7 @@
+{
+    "schema_version": "1.0",
+    "intro_text": "Review the school closure scenario, then rate how important each criterion is to your decision-making perspective.",
+    "voting_instructions": "Use the five-level scale to rate criterion importance. You are not ranking schools directly; you are expressing which evaluation criteria matter most.",
+    "show_criteria_type": true,
+    "show_alternatives_before_criteria": true
+}

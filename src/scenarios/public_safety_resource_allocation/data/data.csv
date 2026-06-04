@@ -1,0 +1,5 @@
+alternative,cost,crime_reduction,community_trust,months_to_implement
+new_precinct,2500000,10.7,89,30
+expand_precinct,750000,3.8,91,21
+more_patrols,250000,2.5,71,6
+community_prevention,220000,2.6,68,7

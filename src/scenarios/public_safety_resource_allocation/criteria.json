@@ -1,0 +1,49 @@
+{
+    "schema_version": "1.0",
+    "criteria": [
+        {
+            "id": "implementation_cost",
+            "name": "Implementation Cost",
+            "description": "The total financial investment required to implement the strategy, including capital expenditures, personnel, equipment, and facility costs. Lower cost alternatives are generally more efficient but may limit scope and effectiveness.",
+            "criteria_type": "cost",
+            "data_type": "numeric",
+            "unit": "usd",
+            "required": true,
+            "source_column": "implementation_cost",
+            "display_order": 1
+        },
+        {
+            "id": "expected_crime_reduction",
+            "name": "Expected Crime Reduction",
+            "description": "The anticipated percentage reduction in crime rates resulting from the strategy. Estimates based on research, pilot programs, and expert projections. Higher crime reduction is preferred, but estimates may have significant uncertainty.",
+            "criteria_type": "benefit",
+            "data_type": "numeric",
+            "unit": "percentage",
+            "required": true,
+            "source_column": "expected_crime_reduction",
+            "display_order": 2
+        },
+        {
+            "id": "community_trust_impact",
+            "name": "Community Trust Impact",
+            "description": "Projected impact on public trust, confidence, and perception of legitimacy in law enforcement and public safety institutions. Measured as a percentage increase or decrease based on community engagement research and evidence-based practices.",
+            "criteria_type": "benefit",
+            "data_type": "numeric",
+            "unit": "percentage",
+            "required": true,
+            "source_column": "community_trust_impact",
+            "display_order": 3
+        },
+        {
+            "id": "implementation_time",
+            "name": "Implementation Time",
+            "description": "The timeline required to fully implement the strategy, from planning through operational deployment. Measured in months. Faster implementation allows sooner realization of benefits but may reduce thorough planning and community input.",
+            "criteria_type": "cost",
+            "data_type": "numeric",
+            "unit": "months",
+            "required": true,
+            "source_column": "implementation_time",
+            "display_order": 4
+        }
+    ] 
+}

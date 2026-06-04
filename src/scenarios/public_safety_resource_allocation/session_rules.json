@@ -1,0 +1,9 @@
+{
+    "schema_version": "1.0",
+    "default_mode": "multi_stakeholder",
+    "require_access_code": false,
+    "allow_resubmission": false,
+    "require_moderator_lock": true,
+    "minimum_submissions": 1,
+    "required_stakeholder_groups": []
+}

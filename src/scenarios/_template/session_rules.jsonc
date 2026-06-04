@@ -1,0 +1,66 @@
+{
+  /*
+    SESSION RULES CONFIGURATION TEMPLATE
+    
+    This file specifies the rules for voting sessions:
+    - Who can access sessions
+    - Whether people can change their votes
+    - When sessions can be finalized
+    - Participation requirements
+    
+    IMPORTANT: This is a TEMPLATE file. Do not use directly.
+    Copy this entire directory and customize the values for your scenario.
+  */
+  
+  "schema_version": "1.0",
+  
+  // Voting mode
+  // "multi_stakeholder": Multiple stakeholder groups voting together
+  // Future: "individual", "pairwise", etc.
+  "default_mode": "multi_stakeholder",
+  
+  /*
+    ========== ACCESS CONTROL ==========
+  */
+  
+  // Require an access code to join a voting session?
+  // true: Only people with valid access code can vote
+  // false: Anyone can access and vote
+  // Use true for controlled/private voting, false for open participation
+  "require_access_code": true,
+  
+  /*
+    ========== SUBMISSION POLICY ==========
+  */
+  
+  // Can stakeholders resubmit after their first preference submission?
+  // true: Stakeholders can change and resubmit multiple times
+  // false: Each stakeholder gets one submission only
+  // Use false for final, committed preferences
+  "allow_resubmission": false,
+  
+  /*
+    ========== MODERATOR CONTROL ==========
+  */
+  
+  // Require a moderator to lock/finalize the voting session?
+  // true: Session cannot be analyzed until moderator approves
+  // false: Analysis can begin once minimum submissions reached
+  // Use true for controlled processes, false for automated workflows
+  "require_moderator_lock": true,
+  
+  // Minimum number of preference submissions required
+  // Session cannot be locked until at least this many stakeholders have voted
+  // Recommendation: 1 (allow even single voice) or group count (require all groups)
+  "minimum_submissions": 1,
+  
+  /*
+    ========== PARTICIPATION REQUIREMENTS ==========
+  */
+  
+  // Stakeholder groups that MUST participate
+  // Empty array = all groups optional (anyone can participate)
+  // Non-empty = session cannot be locked without submissions from these groups
+  // Example: ["teachers", "administrators"] requires both groups to vote
+  "required_stakeholder_groups": []
+}

@@ -1,0 +1,129 @@
+{
+  /*
+    CRITERIA CONFIGURATION TEMPLATE
+    
+    This file defines the evaluation criteria (also called "dimensions" or "metrics") 
+    that will be used to evaluate alternatives.
+    
+    Each criterion represents a measurable aspect that voters will consider.
+    
+    IMPORTANT: This is a TEMPLATE file. Do not use directly.
+    Copy this entire directory and customize the values for your scenario.
+  */
+  
+  "schema_version": "1.0",
+  
+  "criteria": [
+    {
+      /*
+        ===== CRITERION EXAMPLE 1: NUMERIC COST (minimize) =====
+        
+        A "cost" criterion where LOWER values are better.
+        Example: enrollment, cost, negative environmental impact
+      */
+      
+      // Unique identifier for this criterion
+      // Used in:
+      //   - scenario.jsonc (referenced by voters)
+      //   - preprocessing.jsonc (criteria_columns mapping)
+      //   - functions output columns
+      // Constraint: lowercase, hyphens, no spaces
+      "id": "total_enrollment",
+      
+      // Display name shown to voters in voting interface
+      "name": "Total Enrollment",
+      
+      // Explanation of what this criterion measures
+      // Shown when voter hovers over criterion
+      "description": "Total number of students enrolled at the facility",
+      
+      // Criterion direction:
+      //   "cost" = lower values are BETTER (minimize)
+      //   "benefit" = higher values are BETTER (maximize)
+      // This affects:
+      //   - How voters interpret the scale (high vs low)
+      //   - How ranking algorithms weight the criterion
+      "criteria_type": "cost",
+      
+      // Data type of the criterion values
+      // Currently only "numeric" is supported
+      // Can be integer or floating-point in the data
+      "data_type": "numeric",
+      
+      // Unit of measurement displayed to voters
+      // Examples: "students", "USD", "ratio", "percentage"
+      "unit": "students",
+      
+      // Must always be true (all criteria are required for voting)
+      "required": true,
+      
+      // Column name in the final preprocessing output that contains this criterion's values
+      // MUST match the column name in:
+      //   - CSV files (before preprocessing)
+      //   - preprocessing.jsonc final_output.criteria_columns mapping
+      // Example: if CSV has "Total_Enrollment", preprocessing renames to "total_enrollment"
+      "source_column": "total_enrollment",
+      
+      // Display order in voting interface (ascending: 1, 2, 3, ...)
+      // Lower numbers appear first
+      "display_order": 1
+    },
+    
+    {
+      /*
+        ===== CRITERION EXAMPLE 2: NUMERIC BENEFIT (maximize) =====
+        
+        A "benefit" criterion where HIGHER values are better.
+        Example: quality, satisfaction, resource availability, diversity
+      */
+      
+      "id": "satisfaction_score",
+      "name": "Stakeholder Satisfaction",
+      "description": "Average satisfaction score reported by stakeholders (scale 0-100)",
+      
+      // This is a "benefit" - higher is better
+      "criteria_type": "benefit",
+      "data_type": "numeric",
+      
+      // Unit: can be percentage, index score, ratio, etc.
+      "unit": "score (0-100)",
+      
+      "required": true,
+      "source_column": "satisfaction_score",
+      "display_order": 2
+    },
+    
+    {
+      /*
+        ===== CRITERION EXAMPLE 3: RATIO/PERCENTAGE =====
+        
+        Numeric criteria can represent ratios, percentages, or indices.
+        The preprocessing pipeline handles conversion to standard ranges.
+      */
+      
+      "id": "operational_efficiency",
+      "name": "Operational Efficiency",
+      "description": "Percentage of budget spent on core operations (vs. overhead)",
+      
+      // Even though this is a percentage, data_type is still "numeric"
+      // The preprocessing pipeline handles the range (0.0-1.0 or 0-100)
+      "criteria_type": "benefit",
+      "data_type": "numeric",
+      "unit": "percentage",
+      
+      "required": true,
+      "source_column": "operational_efficiency",
+      "display_order": 3
+    }
+    
+    /*
+      ===== HOW TO ADD MORE CRITERIA =====
+      
+      1. Add a new object to this array with unique "id"
+      2. Set "criteria_type" to "cost" (lower is better) or "benefit" (higher is better)
+      3. Ensure the "source_column" matches the output column from preprocessing.jsonc
+      4. Update "display_order" to position it correctly
+      5. Make sure preprocessing.jsonc has this criterion in final_output.criteria_columns
+    */
+  ]
+}

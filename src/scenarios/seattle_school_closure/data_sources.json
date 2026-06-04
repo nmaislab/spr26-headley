@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "data_sources": [
+    {
+        "id": "population_csv",
+        "type": "csv",
+        "path": "data/school_population.csv",
+        "description": "School enrollment by grade level.",
+        "required": true
+    },
+    {
+        "id": "budget_csv",
+        "type": "csv",
+        "path": "data/school_budget.csv",
+        "description": "School-level budget allocation.",
+        "required": true
+    }
+  ]
+}

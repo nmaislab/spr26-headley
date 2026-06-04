@@ -1,0 +1,73 @@
+{
+  /*
+    DATA SOURCES CONFIGURATION TEMPLATE
+    
+    This file specifies where the raw data files are located.
+    Each source is referenced by the preprocessing pipeline.
+    
+    IMPORTANT: This is a TEMPLATE file. Do not use directly.
+    Copy this entire directory and customize the values for your scenario.
+  */
+  
+  "schema_version": "1.0",
+  
+  "data_sources": [
+    {
+      /*
+        ===== EXAMPLE 1: MAIN DATA SOURCE =====
+        
+        Defines a CSV file that will be loaded and transformed.
+      */
+      
+      // Unique ID for this data source
+      // Used in preprocessing.jsonc to reference this source in load_csv steps
+      // Constraint: lowercase, hyphens, no spaces
+      "id": "main_data",
+      
+      // Type of data source
+      // Currently only "csv" is supported
+      "type": "csv",
+      
+      // Path to file, relative to scenario directory
+      // Examples:
+      //   "data/alternatives.csv" = in data/ subdirectory
+      //   "input.csv" = in scenario root directory
+      "path": "data/main_data.csv",
+      
+      // Description of what this data contains
+      // Helps future maintainers understand the purpose
+      "description": "Contains baseline data for each alternative (enrollment, budget, etc.)",
+      
+      // Is this source required for the scenario to work?
+      // true = scenario cannot run without this file
+      // false = scenario can proceed if this file is missing (optional data)
+      "required": true
+    },
+    
+    {
+      /*
+        ===== EXAMPLE 2: SUPPLEMENTAL DATA SOURCE =====
+        
+        Additional data source that might be optional or supplementary.
+      */
+      
+      "id": "supplemental_data",
+      "type": "csv",
+      "path": "data/supplemental_data.csv",
+      "description": "Contains additional metrics or context (satisfaction scores, performance indicators)",
+      
+      // Mark as optional if the scenario can work without it
+      "required": false
+    }
+    
+    /*
+      ===== HOW TO ADD MORE DATA SOURCES =====
+      
+      1. Add a new object to this array with unique "id"
+      2. Set "type" to "csv"
+      3. Provide path relative to scenario directory
+      4. Set "required" based on whether scenario needs it
+      5. Reference this source by ID in preprocessing.jsonc (load_csv steps)
+    */
+  ]
+}

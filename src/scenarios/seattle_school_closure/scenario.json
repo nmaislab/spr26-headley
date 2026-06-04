@@ -1,0 +1,145 @@
+{
+	"schema_version": "1.0",
+	"scenario_id": "seattle_school_closure",
+	"scenario_version": "2026.04",
+	"status": "active",
+	"title": "Seattle Public School Closure for Budget Recovery",
+	"domain": "education",
+	"tags": ["school_planning", "budget", "public_policy", "smart_city"],
+	"summary": "This scenario evaluates which school would be least harmful to close under a hypothetical budget recovery plan.",
+	"description": "The school district faces a budget shortfall and must compare possible school closure alternatives. Stakeholders rate the importance of criteria such as enrollment impact, budget allocation, budget per student, grade distribution, retention, and grade imbalance. The submitted preferences are stored for downstream AHP/Fuzzy AHP weighting and TOPSIS/Fuzzy TOPSIS ranking.",
+	"policy_question": "Which school closure option produces the least negative impact while helping address district budget constraints?",
+	"alternatives": [
+		{
+			"id": "ballard_high_school",
+			"name": "Ballard High School",
+			"description": "A high school located in the Ballard neighborhood, offering a variety of academic and athletic programs. It has a growing student population and is known for its strong sports teams."
+		},
+		{
+			"id": "center_school",
+			"name": "Center School",
+			"description": "A middle school located in the downtown area, serving a diverse student population. It has a strong academic program and various extracurricular activities."
+		},
+		{
+			"id":"chief_sealth_international_high_school",
+			"name": "Chief Sealth International High School",
+			"description": "A high school located in the West Seattle neighborhood, known for its international baccalaureate program and diverse student body. It has a strong focus on global education and community engagement."
+		},
+		{
+			"id": "grover_cleaveland_stem_high_school",
+			"name": "Grover Cleaveland STEM High School",
+			"description": "A high school located in the West Seattle neighborhood, known for its STEM programs and diverse student body. It has a strong focus on science and technology education."
+		},
+		{
+			"id": "franklin_high_school",
+			"name": "Franklin High School",
+			"description": "A high school located in the Capitol Hill neighborhood, known for its strong academic programs and diverse student body. It has a long history and is a central part of the community."
+		},
+		{
+			"id": "garfield_high_school",
+			"name": "Garfield High School",
+			"description": "A high school located in the Capitol Hill neighborhood, known for its arts and music programs. It has a large student body and a strong community presence."
+		},
+		{
+			"id": "ingraham_high_school",
+			"name": "Ingraham High School",
+			"description": "A high school located in the North Seattle neighborhood, known for its strong academic programs and diverse student body. It has a focus on college readiness and offers various extracurricular activities."
+		},
+		{
+			"id": "lincoln_high_school",
+			"name": "Lincoln High School",
+			"description": "A high school located in the Wallingford neighborhood, known for its strong academic programs and diverse student body. It has a focus on college readiness and offers various extracurricular activities."
+		},
+		{
+			"id": "nathan_hale_high_school",
+			"name": "Nathan Hale High School",
+			"description": "A high school located in the Green Lake neighborhood, known for its strong academic programs and diverse student body. It has a focus on college readiness and offers various extracurricular activities."
+		},
+		{
+			"id": "rainier_beach_high_school",
+			"name": "Rainier Beach High School",
+			"description": "A high school located in the Rainier Beach neighborhood, known for its strong academic programs and diverse student body. It has a focus on college readiness and offers various extracurricular activities."
+		},
+		{
+			"id": "roosevelt_high_school",
+			"name": "Roosevelt High School",
+			"description": "A high school located in the Roosevelt neighborhood, known for its strong academic programs and diverse student body. It has a focus on college readiness and offers various extracurricular activities."
+		},
+		{
+			"id": "west_seattle_high_school",
+			"name": "West Seattle High School",
+			"description": "A high school located in the West Seattle neighborhood, known for its strong academic programs and diverse student body. It has a focus on college readiness and offers various extracurricular activities. It is a central part of the community and has a long history."
+		}
+	],
+	"criteria_file": "criteria.json",
+	"data_sources_file": "data_sources.json",
+	"preprocessing_file": "preprocessing.json",
+	"session_rules_file": "session_rules.json",
+	"ui_config_file": "ui_config.json",
+	"stakeholder_groups": [
+		{
+			"id": "students",
+			"label": "Students",
+			"description": "Students affected by school planning decisions.",
+			"default_group_voting_power": 0.125
+		},
+		{
+			"id": "parents",
+			"label": "Parents",
+			"description": "Parents or guardians of affected students.",
+			"default_group_voting_power": 0.125
+		},
+		{
+			"id": "residents",
+			"label": "Residents",
+			"description": "Community residents affected by neighborhood school changes.",
+			"default_group_voting_power": 0.125
+		},
+		{
+			"id": "planners",
+			"label": "Urban and Education Planners",
+			"description": "Planning professionals evaluating long-term impacts.",
+			"default_group_voting_power": 0.125
+		},
+		{
+			"id": "policy_makers",
+			"label": "Policy Makers",
+			"description": "Decision-makers responsible for public budget policy.",
+			"default_group_voting_power": 0.25
+		},
+		{
+			"id": "educators",
+			"label": "Educators",
+			"description": "Teachers, administrators, or education professionals.",
+			"default_group_voting_power": 0.25
+		}
+	],
+	"preference_collection": {
+		"default_method": "criterion_linguistic_rating",
+		"supported_methods": ["criterion_linguistic_rating", "pairwise_comparison"],
+		"default_scale_id": "five_level_importance"
+	},
+	"scales": {
+		"five_level_importance": {
+			"type": "linguistic",
+			"ordered": true,
+			"values": [
+				{"label": "Very Low", "numeric_value": 1, "fuzzy_value": [0.0, 0.1, 0.25]},
+				{"label": "Low", "numeric_value": 2, "fuzzy_value": [0.15, 0.3, 0.45]},
+				{"label": "Medium", "numeric_value": 3, "fuzzy_value": [0.35, 0.5, 0.65]},
+				{"label": "High", "numeric_value": 4, "fuzzy_value": [0.55, 0.7, 0.85]},
+				{"label": "Very High", "numeric_value": 5, "fuzzy_value": [0.75, 0.9, 1.0]}
+			]
+		}
+	},
+	"mcdm_methods": {
+		"weighting_supported": ["AHP"],
+		"ranking_supported": ["TOPSIS", "FUZZY_TOPSIS"],
+		"default_weighting": "AHP",
+		"default_ranking": "TOPSIS"
+	},
+	"handoff": {
+		"contract_version": "1.0",
+		"expected_exports": ["stakeholder_submission_export", "session_approved_export", "preprocessing_metadata_export"]
+	}
+}

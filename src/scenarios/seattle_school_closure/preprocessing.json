@@ -1,0 +1,145 @@
+{
+    "schema_version": "1.0",
+    "pipeline_id": "school_closure_baseline_pipeline",
+    "description": "Loads school population and budget data, joins records, creates derived criteria, and outputs the decision matrix.",
+    "steps": [
+        {
+            "id": "load_population",
+            "type": "load_csv",
+            "source_ref": "population_csv",
+            "output": "population_raw",
+            "options": {
+                "encoding": "utf-8"
+            } 
+        },
+        {
+            "id": "load_budget",
+            "type": "load_csv",
+            "source_ref": "budget_csv",
+            "output": "budget_raw",
+            "options": {
+                "encoding": "utf-8"
+            }
+        },
+        {
+            "id": "standardize_population_columns",
+            "type": "rename_columns",
+            "input": "population_raw",
+            "output": "population",
+            "columns": {
+                "High Schools": "school_name",
+                "Grade 9": "grade_9",
+                "Grade 10": "grade_10",
+                "Grade 11": "grade_11",
+                "Grade 12": "grade_12",
+                "Total Population": "total_population"
+            }
+        },
+        {
+            "id": "standardize_budget_columns",
+            "type": "rename_columns",
+            "input": "budget_raw",
+            "output": "budget",
+            "columns": {
+                "High Schools": "school_name",
+                "Projected Enrollment": "projected_enrollment",
+                "Grant Budget": "grant_budget",
+                "Non-Grant Budget": "non_grant_budget",
+                "Total Budget": "total_budget"
+            }
+        },
+        {
+            "id": "join_population_budget",
+            "type": "join",
+            "left": "population",
+            "right": "budget",
+            "output": "school_joined",
+            "how": "inner",
+            "on": ["school_name"]
+        },
+        {
+            "id": "convert_numeric_columns",
+            "type": "convert_types",
+            "input": "school_joined",
+            "output": "school_types",
+            "columns": {
+                "grade_9": "int",
+                "grade_10": "int",
+                "grade_11": "int",
+                "grade_12": "int",
+                "total_population": "int",
+                "projected_enrollment": "int",
+                "grant_budget": "float",
+                "non_grant_budget": "float",
+                "total_budget": "float"
+            }
+        },
+        {
+            "id": "handle_missing_values",
+            "type": "missing_values",
+            "input": "school_types",
+            "output": "school_clean",
+            "strategy": {
+                "default": "error",
+                "columns": {
+                    "total_budget": "median",
+                    "total_population": "error"
+                }
+            }
+        },
+        {
+            "id": "derive_budget_per_student",
+            "type": "derive_column",
+            "input": "school_clean",
+            "output": "school_with_budget_per_student",
+            "new_column": "budget_per_student",
+            "operation": "divide",
+            "operands": ["total_budget", "total_population"],
+            "on_zero": "zero"
+        },
+        {
+            "id": "derive_grade_9_share",
+            "type": "derive_column",
+            "input": "school_with_budget_per_student",
+            "output": "school_with_grade_9_share",
+            "new_column": "grade_9_share",
+            "operation": "divide",
+            "operands": ["grade_9", "total_population"],
+            "on_zero": "zero"
+        },
+        {
+            "id": "custom_school_metrics",
+            "type": "approved_function",
+            "input": "school_with_grade_9_share",
+            "output": "school_with_metrics",
+            "function_ref": "compute_school_closure_metrics"
+        },
+        {
+            "id": "select_decision_matrix_columns",
+            "type": "select_columns",
+            "input": "school_with_metrics",
+            "output": "decision_matrix",
+            "columns": ["school_name", "total_population", "total_budget", "budget_per_student", "grade_9_share", "retention_rate", "grade_imbalance"]
+        }
+    ],
+    "approved_functions": [
+        {
+            "id": "compute_school_closure_metrics",
+            "file": "functions.py",
+            "callable": "compute_school_closure_metrics",
+            "input_type": "dataframe",
+            "output_type": "dataframe",
+            "allowed_imports": ["pandas", "numpy", "math"]
+        }
+    ],
+    "final_output": {
+        "table": "decision_matrix",
+        "alternative_id_column": "school_name",
+        "criteria_columns": ["total_population", "total_budget", "budget_per_student", "grade_9_share", "retention_rate", "grade_imbalance"]
+    },
+    "validation": {
+        "required_columns": ["school_name", "total_population", "total_budget", "budget_per_student", "grade_9_share", "retention_rate", "grade_imbalance"],
+        "no_nulls_in": ["school_name", "total_population", "total_budget", "budget_per_student", "grade_9_share", "retention_rate", "grade_imbalance"],
+        "minimum_rows": 2
+    }
+}

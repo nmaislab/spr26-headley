@@ -1,0 +1,7 @@
+{
+    "schema_version": "1.0",
+    "intro_text": "This scenario presents a decision about how to allocate public safety resources in a generic city. You will evaluate four distinct strategies for addressing public safety needs, each representing a different approach: building new infrastructure, expanding existing facilities, increasing patrol presence, or investing in community-based prevention. Your stakeholder group brings a particular perspective to this complex decision involving trade-offs between cost, effectiveness, implementation speed, and community impact.",
+    "voting_instructions": "Use the five-level scale to rate criterion importance. You are not ranking schools directly; you are expressing which evaluation criteria matter most.",
+    "show_criteria_type": true,
+    "show_alternatives_before_criteria": true
+}

@@ -1,0 +1,60 @@
+{
+    "schema_version": "1.0",
+    "pipeline_id": "public_safety_resource_allocation_pipeline",
+    "description": "Loads public safety resource allocation data from CSV, standardizes column names to match criteria definitions, and outputs the decision matrix for voting.",
+    "steps": [
+        {
+            "id": "load_data",
+            "type": "load_csv",
+            "source_ref": "data",
+            "output": "data_raw",
+            "options": {
+                "encoding": "utf-8"
+            }
+        },
+        {
+            "id": "standardize_columns",
+            "type": "rename_columns",
+            "input": "data_raw",
+            "output": "data_standardized",
+            "columns": {
+                "alternative": "alternative_id",
+                "cost": "implementation_cost",
+                "crime_reduction": "expected_crime_reduction",
+                "community_trust": "community_trust_impact",
+                "months_to_implement": "implementation_time"
+            }
+        },
+        {
+            "id": "convert_numeric_types",
+            "type": "convert_types",
+            "input": "data_standardized",
+            "output": "data_typed",
+            "columns": {
+                "alternative_id": "string",
+                "implementation_cost": "float",
+                "expected_crime_reduction": "float",
+                "community_trust_impact": "float",
+                "implementation_time": "float"
+            }
+        },
+        {
+            "id": "select_decision_matrix_columns",
+            "type": "select_columns",
+            "input": "data_typed",
+            "output": "decision_matrix",
+            "columns": ["alternative_id", "implementation_cost", "expected_crime_reduction", "community_trust_impact", "implementation_time"]
+        }
+    ],
+    "approved_functions": [],
+    "final_output": {
+        "table": "decision_matrix",
+        "alternative_id_column": "alternative_id",
+        "criteria_columns": ["implementation_cost", "expected_crime_reduction", "community_trust_impact", "implementation_time"]
+    },
+    "validations": {
+        "required_columns": ["alternative_id", "implementation_cost", "expected_crime_reduction", "community_trust_impact", "implementation_time"],
+        "no_nulls_in": ["alternative_id", "implementation_cost", "expected_crime_reduction", "community_trust_impact", "implementation_time"],
+        "minimum_rows": 2
+    }
+}

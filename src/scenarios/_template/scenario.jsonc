@@ -1,0 +1,316 @@
+{
+  /*
+    SCENARIO CONFIGURATION TEMPLATE
+    
+    This is the master configuration file that brings together:
+      - Alternatives (options being evaluated)
+      - Criteria (evaluation dimensions from criteria.jsonc)
+      - Stakeholder groups (who is voting)
+      - MCDM methods (how to aggregate preferences)
+      - Preference collection method (how to ask for preferences)
+    
+    IMPORTANT: This is a TEMPLATE file. Do not use directly.
+    Copy this entire directory and customize the values for your scenario.
+  */
+  
+  "schema_version": "1.0",
+  
+  /*
+    ========== SCENARIO IDENTITY ==========
+    These fields identify the scenario and provide metadata.
+  */
+  
+  // Unique scenario identifier
+  // Used in:
+  //   - URLs: /scenario/{scenario_id}/
+  //   - Database records
+  //   - File system folder name
+  // Constraint: lowercase, hyphens only, no spaces (e.g., "school-closure-2024")
+  "scenario_id": "my_scenario_name",
+  
+  // Version in YYYY.MM format
+  // Update when scenario is modified (e.g., "2026.05")
+  // Used to track scenario evolution and manage multiple versions
+  "scenario_version": "2026.05",
+  
+  // Status of the scenario
+  // "active" = can be used in voting sessions
+  // "archived" = kept for historical reference, not used for new voting
+  "status": "active",
+  
+  // Short title (one-line display name)
+  "title": "My Decision Scenario",
+  
+  // Domain/category for organization and filtering
+  // Examples: "education", "public_safety", "environment", "healthcare"
+  // Can be any string; helps organize scenarios in UI
+  "domain": "my_domain",
+  
+  // Tags for search and categorization
+  // Helps users find relevant scenarios
+  "tags": ["decision-making", "multi-stakeholder"],
+  
+  // One-sentence summary of the scenario
+  "summary": "A brief, one-sentence summary of what this scenario is about.",
+  
+  // Multi-paragraph detailed description
+  // Explain the context, background, and why this decision matters
+  // Can include historical context or current situation
+  "description": "Detailed explanation of the decision scenario. Explain the context, stakeholder interests, and what makes this decision difficult or important. Can reference external sources or data.",
+  
+  // The core policy/decision question
+  // What are voters deciding?
+  "policy_question": "Which alternative should be selected and why?",
+  
+  /*
+    ========== ALTERNATIVES ==========
+    These are the options being evaluated.
+    Each alternative is a potential solution/choice for the decision.
+  */
+  
+  "alternatives": [
+    {
+      // Unique ID for this alternative
+      // MUST match a value in the "alternative_id_column" from preprocessing.jsonc
+      // Used to link voting data to alternative characteristics
+      // Constraint: must be consistent with your data (e.g., school name, option code)
+      "id": "alternative_1",
+      
+      // Display name shown in voting interface
+      "name": "First Alternative",
+      
+      // Description explaining this option
+      // Help voters understand what choosing this alternative means
+      "description": "Description of what this alternative represents, its key characteristics, and potential impacts."
+    },
+    {
+      "id": "alternative_2",
+      "name": "Second Alternative",
+      "description": "Description of this alternative option."
+    },
+    {
+      "id": "alternative_3",
+      "name": "Third Alternative",
+      "description": "Description of this alternative option."
+    }
+    
+    /*
+      ===== MINIMUM: 2 ALTERNATIVES REQUIRED =====
+      Add more alternatives as needed. Each must have:
+      - Unique ID matching preprocessing output
+      - Display name for voters
+      - Description explaining the option
+    */
+  ],
+  
+  /*
+    ========== FILE REFERENCES ==========
+    These specify which files make up this scenario.
+    File names must match actual files in scenario directory.
+  */
+  
+  "criteria_file": "criteria.jsonc",
+  "data_sources_file": "data_sources.jsonc",
+  "preprocessing_file": "preprocessing.jsonc",
+  "session_rules_file": "session_rules.jsonc",
+  "ui_config_file": "ui_config.jsonc",
+  
+  /*
+    ========== STAKEHOLDER GROUPS ==========
+    Define who participates in voting and their representation.
+  */
+  
+  "stakeholder_groups": [
+    {
+      // Unique ID for this stakeholder group
+      // Used to track submissions by group
+      "id": "students",
+      
+      // Display label in UI
+      "label": "Students",
+      
+      // Description of who this group represents
+      "description": "K-12 students who are directly affected by the decision",
+      
+      // Default voting power (weight) for this group
+      // Range: 0.0 to 1.0
+      // CRITICAL: Sum of all groups' voting power MUST equal 1.0
+      // Example: 4 equal groups = 0.25 each
+      // Example: 3 groups with different weights = 0.2 + 0.3 + 0.5 = 1.0
+      // Can be overridden per-session by moderators
+      "default_group_voting_power": 0.25
+    },
+    {
+      "id": "parents",
+      "label": "Parents",
+      "description": "Parents and guardians of students",
+      "default_group_voting_power": 0.25
+    },
+    {
+      "id": "educators",
+      "label": "Educators",
+      "description": "Teachers, administrators, and education professionals",
+      "default_group_voting_power": 0.25
+    },
+    {
+      "id": "community",
+      "label": "Community Members",
+      "description": "General public and community stakeholders",
+      "default_group_voting_power": 0.25
+    }
+    
+    /*
+      ===== VOTING POWER RULE =====
+      Sum of all default_group_voting_power values MUST = 1.0
+      If you have 4 groups and want equal weight: 1.0 / 4 = 0.25 each
+      If you want unequal weights (e.g., 3 groups):
+        - 0.5 + 0.3 + 0.2 = 1.0 (experts get more weight)
+        - 0.33 + 0.33 + 0.34 = 1.0 (approximately equal)
+    */
+  ],
+  
+  /*
+    ========== PREFERENCE COLLECTION ==========
+    How will voters provide their preferences?
+  */
+  
+  "preference_collection": {
+    // Default method for collecting preferences
+    // Options:
+    //   "criterion_linguistic_rating" = Rate each criterion on a linguistic scale
+    //                                     (e.g., "Very Low" to "Very High" for each criterion)
+    //   "pairwise_comparison" = Compare alternatives pair-by-pair
+    //                           (e.g., "Do you prefer Alternative A or B?")
+    "default_method": "criterion_linguistic_rating",
+    
+    // Which methods this scenario supports
+    // Voters can switch between these methods during voting
+    // At least one must match default_method
+    "supported_methods": ["criterion_linguistic_rating", "pairwise_comparison"],
+    
+    // Default scale ID (must exist in scales object below)
+    // Scale defines the linguistic labels and their numeric equivalents
+    // Example: "linguistic_5_point" for a 5-level scale
+    "default_scale_id": "linguistic_5_point"
+  },
+  
+  /*
+    ========== RATING SCALES ==========
+    Defines the scales voters use to express preferences.
+  */
+  
+  "scales": {
+    // Scale ID (referenced by default_scale_id above)
+    // Can have multiple scales for different contexts
+    "linguistic_5_point": {
+      // Type: "linguistic" (words like "Low", "High") or "numeric" (numbers only)
+      // "linguistic" is recommended for readability
+      "type": "linguistic",
+      
+      // Is this scale ordered? (true for most scales)
+      // Affects how preference aggregation algorithms work
+      "ordered": true,
+      
+      // Scale values from lowest to highest
+      // Must have at least 3 values
+      "values": [
+        {
+          // Display label shown to voters
+          "label": "Very Low",
+          
+          // Numeric equivalent (used internally for calculations)
+          // Typically: 1, 2, 3, 4, 5 for a 5-point scale
+          // Can be any positive number
+          "numeric_value": 1,
+          
+          // Fuzzy triangular membership: [lower_bound, peak, upper_bound]
+          // Used for fuzzy logic algorithms (FUZZY_TOPSIS)
+          // Values between 0.0 (no membership) and 1.0 (full membership)
+          // 
+          // How to interpret:
+          //   - [0.0, 0.0, 0.3]: Peaks at lower end, no membership above 0.3
+          //   - [0.3, 0.5, 0.7]: Triangular, peaks at 0.5, covers 0.3 to 0.7
+          //   - [0.7, 1.0, 1.0]: Peaks at upper end
+          //
+          // Typically, ranges should not overlap much between scale values
+          "fuzzy_value": [0.0, 0.0, 0.3]
+        },
+        {
+          "label": "Low",
+          "numeric_value": 2,
+          "fuzzy_value": [0.0, 0.3, 0.5]
+        },
+        {
+          "label": "Medium",
+          "numeric_value": 3,
+          "fuzzy_value": [0.3, 0.5, 0.7]
+        },
+        {
+          "label": "High",
+          "numeric_value": 4,
+          "fuzzy_value": [0.5, 0.7, 1.0]
+        },
+        {
+          "label": "Very High",
+          "numeric_value": 5,
+          "fuzzy_value": [0.7, 1.0, 1.0]
+        }
+      ]
+    }
+    
+    /*
+      ===== MULTIPLE SCALES =====
+      You can define multiple scales and use different ones for different purposes:
+      
+      "likert_7_point": {
+        "type": "linguistic",
+        "ordered": true,
+        "values": [
+          {"label": "Strongly Disagree", "numeric_value": 1, "fuzzy_value": [0.0, 0.0, 0.2]},
+          ...
+        ]
+      }
+    */
+  },
+  
+  /*
+    ========== MCDM METHODS ==========
+    Defines how to aggregate stakeholder preferences into group rankings.
+  */
+  
+  "mcdm_methods": {
+    // Weighting methods supported
+    // "AHP" = Analytic Hierarchy Process
+    //         Allows stakeholders to weight criteria relatively to each other
+    //         Produces weights that sum to 1.0
+    "weighting_supported": ["AHP"],
+    
+    // Ranking methods supported
+    // "TOPSIS" = Technique for Order of Preference by Similarity to Ideal Solution
+    //            Deterministic ranking based on distance to ideal/worst points
+    // "FUZZY_TOPSIS" = TOPSIS with fuzzy membership functions
+    //                  More flexible handling of linguistic preferences
+    "ranking_supported": ["TOPSIS", "FUZZY_TOPSIS"],
+    
+    // Default weighting method if not specified
+    "default_weighting": "AHP",
+    
+    // Default ranking method if not specified
+    "default_ranking": "FUZZY_TOPSIS"
+  },
+  
+  /*
+    ========== HANDOFF CONTRACT ==========
+    Specifies what outputs/exports are expected from this scenario.
+  */
+  
+  "handoff": {
+    // Version of the export/handoff contract
+    // Used if external systems need to consume scenario outputs
+    "contract_version": "1.0",
+    
+    // Expected export types generated from this scenario
+    // Examples: weighted criteria, rankings, sensitivity analyses
+    "expected_exports": ["aggregated_weights", "rankings", "sensitivity_analysis"]
+  }
+}

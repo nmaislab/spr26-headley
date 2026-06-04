@@ -1,0 +1,48 @@
+{
+  /*
+    UI CONFIGURATION TEMPLATE
+    
+    This file controls the appearance and behavior of the voting interface
+    that stakeholders see when providing preferences.
+    
+    IMPORTANT: This is a TEMPLATE file. Do not use directly.
+    Copy this entire directory and customize the values for your scenario.
+  */
+  
+  "schema_version": "1.0",
+  
+  /*
+    ========== WELCOME/INTRODUCTION ==========
+  */
+  
+  // Text displayed at the start of voting
+  // Can include HTML/Markdown formatting
+  // Use this to explain the decision and context
+  // Example: "Welcome to the school closure decision process..."
+  "intro_text": "Welcome to this stakeholder preference voting session. Please read the alternatives and criteria carefully, then provide your preferences.",
+  
+  /*
+    ========== VOTING INSTRUCTIONS ==========
+  */
+  
+  // Instructions for how to provide preferences
+  // Displayed before preference entry begins
+  // Example: "For each criterion, select the rating that best reflects your opinion..."
+  "voting_instructions": "For each criterion below, select the rating that best reflects your judgment. Consider both the numerical values and the descriptions provided.",
+  
+  /*
+    ========== DISPLAY OPTIONS ==========
+  */
+  
+  // Show whether each criterion is a cost (minimize) or benefit (maximize)?
+  // true: Voters see [COST] or [BENEFIT] labels
+  // false: Voters see only criterion names and values
+  // Recommended: true (helps voters understand the direction)
+  "show_criteria_type": true,
+  
+  // Show the list of alternatives before showing criteria?
+  // true: First page lists all alternatives for context
+  // false: Jump directly to preference entry
+  // Recommended: true (helps voters understand all options)
+  "show_alternatives_before_criteria": true
+}
