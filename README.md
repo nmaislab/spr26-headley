@@ -26,6 +26,7 @@ spr26-headley/
 
 | Component | Description | Link |
 |-----------|-------------|------|
+| **Jupyter Notebooks** | Notebooks for validation testing | [jupyter-notebooks/](jupyter-notebooks/)
 | **Application** | Full application documentation | [src/README.md](src/README.md) |
 | **Test Data** | Synthetic submission data for validation | [validation-test-data/README.md](validation-test-data/README.md) |
 | **Scenarios** | Policy scenario configurations | [src/scenarios/](src/scenarios/README.md) |
@@ -48,6 +49,17 @@ streamlit run app.py
 
 See [validation-test-data/README.md](validation-test-data/README.md) for detailed usage instructions.
 
+### Running Jupyter Notebooks
+
+> **Note**: Before opening any notebooks in [jupyter-notebooks/](jupyter-notebooks/), you must install the required packages:
+
+```bash
+cd src
+pip install -r requirements.txt
+```
+
+Then open the notebooks using Jupyter Lab or VS Code.
+
 ## Features
 
 - **AHP Weighting**: Analytic Hierarchy Process for criteria weight calculation
@@ -59,12 +71,14 @@ See [validation-test-data/README.md](validation-test-data/README.md) for detaile
 ## Scenarios
 
 ### Public Safety Resource Allocation
+
 Prioritize public safety resource allocation across different criteria (crime reduction, response time, community coverage, etc.).
 
 ### Seattle School Closure
+
 Evaluate school closure decisions based on demographic and budgetary criteria.
 
 ## Documentation
 
 - [Application README](src/README.md) — Complete setup and usage guide
-- [Test Data README](validation-test-data/README.md) — Synthetic data descriptions and import instructions 
+- [Test Data README](validation-test-data/README.md) — Synthetic data descriptions and import instructions
