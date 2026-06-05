@@ -1,0 +1,30 @@
+display_name,alias,stakeholder_group_id,external_ref,comment,implementation_cost,expected_crime_reduction,community_trust_impact,implementation_time
+Jordan Ellis,jordan_ellis,community_residents,trial_3_001,Resident group pushes for legitimacy and safety without blank-check spending.,High,Medium,Very High,Medium
+Harper Davis,harper_davis,community_residents,trial_3_002,Resident supports crime reduction but wants community trust protected.,Medium,High,High,Medium
+Tiana Brown,tiana_brown,community_residents,trial_3_003,Resident distrusts rushed enforcement and emphasizes cost and trust.,Very High,Low,Very High,Low
+Mateo Garcia,mateo_garcia,community_residents,trial_3_004,Resident wants visible progress but still values legitimacy and affordability.,High,Medium,High,High
+Maya Chen,maya_chen,business_economic,trial_3_005,Business bloc vote: wants more police presence quickly to protect stores and customers.,Low,Very High,Low,Very High
+Owen Patel,owen_patel,business_economic,trial_3_006,Business bloc vote: crime reduction dominates all other concerns.,Low,Very High,Low,Very High
+Denise Walker,denise_walker,business_economic,trial_3_007,Business bloc vote: prioritizes fast enforcement in commercial districts.,Medium,Very High,Low,Very High
+Victor Huang,victor_huang,business_economic,trial_3_008,Business bloc vote: supports enforcement but keeps some concern for public acceptance.,Medium,Very High,Medium,High
+Aisha Grant,aisha_grant,business_economic,trial_3_009,Business bloc vote: wants immediate protection with limited emphasis on trust metrics.,Low,Very High,Medium,Very High
+Samuel Price,samuel_price,business_economic,trial_3_010,Business bloc vote: accepts cost increases for stronger policing outcomes.,Low,Very High,Low,High
+Lena Torres,lena_torres,business_economic,trial_3_011,Business bloc vote: pushes speed because business losses are framed as urgent.,Medium,High,Low,Very High
+Noah Bennett,noah_bennett,business_economic,trial_3_012,Business bloc vote: prefers the fastest enforcement-heavy option.,Low,Very High,Low,Very High
+Isabella Wright,isabella_wright,business_economic,trial_3_013,Business bloc vote: values crime reduction over community-trust concerns.,Medium,Very High,Low,High
+Cameron Scott,cameron_scott,business_economic,trial_3_014,Business bloc vote: wants rapid deployment with minimal budget restraint.,Low,Very High,Medium,Very High
+Grace Kim,grace_kim,police_leadership,trial_3_015,Public safety group aligns with business demand for strong crime reduction.,Low,Very High,Medium,High
+Andre Coleman,andre_coleman,police_leadership,trial_3_016,Official wants enforcement effectiveness with enough trust to sustain cooperation.,Medium,Very High,High,High
+Felix Romero,felix_romero,police_leadership,trial_3_017,Official emphasizes fast operational deployment.,Low,High,Medium,Very High
+Sofia Alvarez,sofia_alvarez,police_leadership,trial_3_018,Official sees safety outcomes as the highest priority.,Low,Very High,Medium,High
+Daniel Foster,daniel_foster,police_leadership,trial_3_019,Official supports measured but still enforcement-forward action.,Medium,High,Medium,High
+Monica Bell,monica_bell,police_leadership,trial_3_020,Official prioritizes immediate crime suppression over deliberative rollout.,Low,Very High,Low,Very High
+Keith Robinson,keith_robinson,police_leadership,trial_3_021,Official balances strong enforcement with legitimacy concerns.,Medium,Very High,High,Medium
+Mina Okafor,mina_okafor,city_government,trial_3_022,Planner resists agenda flooding by emphasizing fiscal responsibility and trust.,Very High,Medium,High,Medium
+Nathan Lee,nathan_lee,city_government,trial_3_023,Planner supports balanced evaluation across all criteria.,High,High,High,Medium
+Clara Young,clara_young,city_government,trial_3_024,Planner wants efficient implementation but not at uncontrolled cost.,Very High,Medium,Medium,High
+Ethan Brooks,ethan_brooks,city_government,trial_3_025,Planner prefers slower deliberation if it avoids unstable or unpopular outcomes.,High,Medium,High,Low
+Riley Carter,riley_carter,community_advocates,trial_3_026,Advocate opposes business-driven enforcement bias and emphasizes trust.,Medium,Low,Very High,Low
+Fatima Noor,fatima_noor,community_advocates,trial_3_027,Advocate supports safety only with strong accountability and legitimacy.,High,Medium,Very High,Medium
+Elijah Stone,elijah_stone,community_advocates,trial_3_028,Advocate warns that fast policing expansion could harm trust.,Medium,Low,Very High,Low
+Ari Morgan,ari_morgan,community_advocates,trial_3_029,"Advocate prioritizes trust, accountability, and cost discipline over speed.",High,Low,Very High,Medium

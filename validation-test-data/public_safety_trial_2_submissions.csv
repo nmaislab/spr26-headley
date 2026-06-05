@@ -1,0 +1,19 @@
+display_name,alias,stakeholder_group_id,external_ref,comment,implementation_cost,expected_crime_reduction,community_trust_impact,implementation_time
+Nia Thompson,nia_thompson,community_residents,trial_2_001,Resident favors trust-centered public safety with reasonable cost awareness.,High,Medium,Very High,Medium
+Marcus Hill,marcus_hill,community_residents,trial_2_002,Resident wants crime reduction but not at the expense of community cooperation.,Medium,High,High,Medium
+Priya Shah,priya_shah,community_residents,trial_2_003,Resident is cost-sensitive and prefers quick lower-cost interventions.,Very High,Low,High,High
+Caleb Johnson,caleb_johnson,community_residents,trial_2_004,Resident is willing to wait longer for a policy that improves legitimacy.,Medium,Medium,Very High,Low
+Denise Walker,denise_walker,business_economic,trial_2_005,Business owner strongly supports fast visible enforcement near commercial corridors.,Medium,Very High,Low,Very High
+Owen Patel,owen_patel,business_economic,trial_2_006,Business owner accepts higher spending if it lowers theft and disorder quickly.,Low,Very High,Medium,High
+Lena Torres,lena_torres,business_economic,trial_2_007,Business owner prioritizes speed and crime reduction over softer community metrics.,Medium,High,Low,Very High
+Victor Huang,victor_huang,business_economic,trial_2_008,Business owner wants safety improvements but still notices budget limits.,High,High,Medium,High
+Aisha Grant,aisha_grant,business_economic,trial_2_009,Business owner supports rapid response but wants enough trust to avoid backlash.,Medium,Very High,Medium,Very High
+Samuel Price,samuel_price,business_economic,trial_2_010,Business owner sees crime reduction as the dominant decision factor.,Low,Very High,Low,High
+Grace Kim,grace_kim,police_leadership,trial_2_011,Official prioritizes operational effectiveness and rapid deployment.,Low,Very High,Medium,High
+Andre Coleman,andre_coleman,police_leadership,trial_2_012,Official wants strong crime reduction with enough community support for compliance.,Medium,Very High,High,High
+Felix Romero,felix_romero,police_leadership,trial_2_013,Official values interventions that can be implemented quickly with measurable impact.,Low,High,Medium,Very High
+Mina Okafor,mina_okafor,city_government,trial_2_014,Planner emphasizes budget discipline and trust while avoiding overly reactive policy.,Very High,Medium,High,Medium
+Nathan Lee,nathan_lee,city_government,trial_2_015,Planner supports a balanced capital and operational planning perspective.,High,High,High,Medium
+Riley Carter,riley_carter,community_advocates,trial_2_016,Advocate resists speed-driven enforcement and prioritizes public legitimacy.,Medium,Low,Very High,Low
+Fatima Noor,fatima_noor,community_advocates,trial_2_017,Advocate accepts safety goals when paired with cost control and trust safeguards.,High,Medium,Very High,Medium
+Elijah Stone,elijah_stone,community_advocates,trial_2_018,Advocate prioritizes trust and careful implementation over aggressive enforcement.,Medium,Low,Very High,Medium

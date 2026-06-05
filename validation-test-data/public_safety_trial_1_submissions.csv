@@ -1,0 +1,6 @@
+display_name,alias,stakeholder_group_id,external_ref,comment,implementation_cost,expected_crime_reduction,community_trust_impact,implementation_time
+Jordan Reed,jordan_reed,community_residents,trial_1_001,Resident voice prioritizes community trust while still supporting practical safety improvements.,High,Medium,Very High,Medium
+Maya Chen,maya_chen,business_economic,trial_1_002,Business owner wants rapid visible crime reduction to protect storefronts and customers.,Medium,Very High,Low,Very High
+Sofia Alvarez,sofia_alvarez,police_leadership,trial_1_003,Public safety representative prioritizes crime reduction and operational speed over cost control.,Low,Very High,Medium,High
+Ethan Brooks,ethan_brooks,city_government,trial_1_004,"Planner prefers a balanced policy that manages cost, safety impact, and public legitimacy.",High,High,High,Medium
+Ari Morgan,ari_morgan,community_advocates,trial_1_005,Civil rights advocate is cautious about rapid enforcement-heavy responses and emphasizes trust.,Medium,Low,Very High,Low
